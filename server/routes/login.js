@@ -20,11 +20,20 @@ app.post('/login', (req, res) => {
             });
         }
 
-        if (!usuarioDB || usuarioDB.estado) {
+        if (!usuarioDB) {
             return res.status(400).json({
                 ok: false,
                 err: {
                     message: 'Usuario o contraseña incorrectos'
+                }
+            });
+        }
+
+        if (usuarioDB.estado === false) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: 'Cuenta deshabilitada'
                 }
             });
         }
