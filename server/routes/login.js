@@ -12,9 +12,7 @@ const app = express();
 app.post('/login', (req, res) => {
 
     let body = req.body;
-
     Usuarios.findOne({ email: body.email }, (err, usuarioDB) => {
-
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -22,7 +20,7 @@ app.post('/login', (req, res) => {
             });
         }
 
-        if (!usuarioDB) {
+        if (!usuarioDB || usuarioDB.estado) {
             return res.status(400).json({
                 ok: false,
                 err: {
